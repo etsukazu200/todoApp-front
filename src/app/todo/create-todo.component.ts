@@ -50,8 +50,11 @@ export class createTodoComponent implements OnInit{
         
       }
 
-      deleteTodo(todo:Todo){
-        this.todoService.deleteTodo(todo.id);
+      deleteTodo(todoDelete:Todo){
+        this.todoService.deleteTodo(todoDelete.id).subscribe(()=>{
+           
+        this.todos=this.todos.filter((todo) => todo.id !== todoDelete.id);
+        });
       }
      // @Output() addTodo: EventEmitter<Todo> = new EventEmitter();
       //submitTodo() {
@@ -61,11 +64,17 @@ export class createTodoComponent implements OnInit{
       //}
      
       addNewTodo(title: string) {
-       this.todoService.addNewTodo(title);
+       this.todoService.addNewTodo(title).subscribe((todo:Todo)=>{
+         this.todos = [...this.todos,todo];
+          console.log(todo)
+          
+       });
       }
    
-       get  filteredTodos() {
-        return this.todoService.filteredTodos;
+        filteredTodos() {
+        return this.todoService.filteredTodos(this.filterBy).subscribe((todofiltre:Todo[])=>{
+          this.todos=todofiltre;
+        });
       }
       
 

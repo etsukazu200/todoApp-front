@@ -4,18 +4,13 @@
 	<input type="text" placeholder="Enter todo name" [(ngModel)]="title" name="name">
 	<button (click)="addNewTodo(title)">Add</button>
   
-	<select [(ngModel)]="filterBy">
+	<select [(ngModel)]="filterBy"  (change)="filteredTodos()">
 		<option value="all">All</option>
 		<option value="completed">completed</option>
 		<option value="incompleted">uncompleted</option>
 	  </select>
 
-	  <ul>
-		<li *ngFor="let todo of filteredTodos">{{todo.completed}}
-		  <input type="checkbox" [(ngModel)]="todo.completed" (change)="filteredTodos">
-		  <button (click)="deleteTodo(todo)">Delete</button>
-		</li>
-	  </ul>
+	
 
 <mat-table class="mat-elevation-z8" [dataSource]="todos">
 	<ng-container matColumnDef="title">
