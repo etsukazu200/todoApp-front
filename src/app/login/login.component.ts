@@ -29,8 +29,8 @@ export class LoginComponent {
   }
   inscription() {
     if (this.form.valid) {
-      this.todoService.inscription(this.form.controls["username"].value,this.form.controls["password"].value)
-      .subscribe();
+      this.todoService.inscription(this.form.controls["username"].value,this.form.controls["password"].value).subscribe();
+      
     }
   }
   @Input() error: string ="";
