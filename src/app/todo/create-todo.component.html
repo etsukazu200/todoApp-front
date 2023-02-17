@@ -1,0 +1,48 @@
+
+<h1>Todo List</h1>
+
+	<input type="text" placeholder="Enter todo name" [(ngModel)]="title" name="name">
+	<button (click)="addNewTodo(title)">Add</button>
+  
+	<select [(ngModel)]="filterBy">
+		<option value="all">All</option>
+		<option value="completed">completed</option>
+		<option value="incompleted">uncompleted</option>
+	  </select>
+
+	  <ul>
+		<li *ngFor="let todo of filteredTodos">{{todo.completed}}
+		  <input type="checkbox" [(ngModel)]="todo.completed" (change)="filteredTodos">
+		  <button (click)="deleteTodo(todo)">Delete</button>
+		</li>
+	  </ul>
+
+<mat-table class="mat-elevation-z8" [dataSource]="todos">
+	<ng-container matColumnDef="title">
+		<mat-header-cell *matHeaderCellDef>title</mat-header-cell>
+		<mat-cell *matCellDef="let todo;">{{todo.title}}</mat-cell>
+	</ng-container>
+	<ng-container matColumnDef="status">
+		<mat-header-cell *matHeaderCellDef>status</mat-header-cell>
+		
+		<mat-cell   *matCellDef="let todo;"> 
+			<div *ngIf="todo.completed;">completed</div>
+			<div *ngIf="!todo.completed;">uncompleted</div>
+		</mat-cell>
+	</ng-container>
+	<ng-container matColumnDef="actions">
+		<mat-header-cell *matHeaderCellDef></mat-header-cell>
+		<mat-cell *matCellDef="let todo;">
+      <button (click)="markTodoCompleted(todo)" mat-icon-button>
+        <mat-icon>launch</mat-icon>        
+      </button>
+      <button (click)="deleteTodo(todo)"  mat-icon-button>
+        <mat-icon color="warn">delete</mat-icon>
+      </button>
+    </mat-cell>
+	</ng-container>
+	<mat-header-row *matHeaderRowDef="displayedColumns">
+	</mat-header-row>
+	<mat-row *matRowDef="let todo; columns: displayedColumns"></mat-row>
+</mat-table>
+
